@@ -1,0 +1,5 @@
+matplotlib>=3.7.0
+scikit-learn>=1.0.0
+torch>=1.12.0
+tqdm>=4.52.0
+zuko>=0.3.0
