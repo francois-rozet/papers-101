@@ -29,9 +29,13 @@ class MLP(nn.Sequential):
             (in_features, *hidden_features),
             (*hidden_features, out_features),
         ):
-            layers.extend([nn.Linear(a, b), nn.ELU()])
+            layers.extend([
+                nn.Linear(a, b),
+                nn.ELU(),
+                nn.LayerNorm(b, elementwise_affine=False),
+            ])
 
-        super().__init__(*layers[:-1])
+        super().__init__(*layers[:-2])
 
 
 class CNF(nn.Module):
@@ -91,7 +95,7 @@ class FlowMatchingLoss(nn.Module):
 
 
 if __name__ == '__main__':
-    flow = CNF(2, hidden_features=[64] * 3)
+    flow = CNF(2, hidden_features=[64] * 2)
 
     # Training
     loss = FlowMatchingLoss(flow)
